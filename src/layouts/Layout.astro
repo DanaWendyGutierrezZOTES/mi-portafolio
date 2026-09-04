@@ -1,0 +1,53 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Dana Gutierrez | Portafolio de Software & Proyectos UNIFRANZ",
+  description = "Portafolio profesional de Dana Gutierrez, estudiante de Ing. de Sistemas en UNIFRANZ. Proyectos de materias universitarias y proyectos personales."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <!-- Open Graph / Meta -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    
+    <!-- Google Fonts Plus Jakarta Sans & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body class="min-h-screen bg-background text-slate-100 relative overflow-x-hidden">
+    
+    <!-- Ambient glowing light mesh in background -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      <div class="absolute -top-[15%] left-[15%] w-[600px] h-[600px] bg-primary-500/15 rounded-full blur-[150px]"></div>
+      <div class="absolute top-[25%] -right-[10%] w-[550px] h-[550px] bg-personal/15 rounded-full blur-[160px]"></div>
+      <div class="absolute top-[60%] left-[-10%] w-[500px] h-[500px] bg-academic/15 rounded-full blur-[140px]"></div>
+      <div class="absolute -bottom-[10%] right-[20%] w-[600px] h-[600px] bg-accent-purple/10 rounded-full blur-[170px]"></div>
+      <div class="absolute inset-0 bg-grid-cyber opacity-70"></div>
+      <div class="absolute inset-0 bg-radial-glow opacity-80"></div>
+    </div>
+
+    <!-- Main Application Wrapper -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+      <slot />
+    </div>
+
+  </body>
+</html>

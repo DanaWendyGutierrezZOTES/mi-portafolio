@@ -1,0 +1,242 @@
+---
+import { projects } from '../data/projects';
+import ProjectCard from './ProjectCard.astro';
+
+// Extraer lista única de tecnologías
+const allTechnologies = Array.from(new Set(projects.flatMap(p => p.tags))).slice(0, 10);
+const academicProjects = projects.filter(p => p.category === 'materia');
+const personalProjects = projects.filter(p => p.category === 'personal');
+---
+
+<section id="proyectos" class="py-16 md:py-24 relative">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-xs font-bold text-cyan-300 shadow-sm">
+        Proyectos & Materias
+      </div>
+      <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        Proyectos Universitarios y Personales
+      </h2>
+      <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+        Explora los proyectos desarrollados en las asignaturas de la carrera en <span class="text-cyan-400 font-semibold">UNIFRANZ</span> y aplicaciones web creadas de manera autónoma.
+      </p>
+    </div>
+
+    <!-- Filter Control Bar -->
+    <div class="glass-panel p-5 rounded-2xl border border-surface-border space-y-4 shadow-xl">
+      
+      <!-- Top Row: Category Tabs & Realtime Search -->
+      <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+        
+        <!-- Category Buttons (Tabs) -->
+        <div class="flex items-center gap-2 p-1.5 bg-surface/90 rounded-xl border border-surface-border overflow-x-auto">
+          <button 
+            type="button"
+            class="filter-cat-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all duration-200 bg-cyan-500 text-slate-950 shadow-md"
+            data-category="all"
+          >
+            Todos ({projects.length})
+          </button>
+          
+          <button 
+            type="button"
+            class="filter-cat-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-bold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
+            data-category="materia"
+          >
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+            Materias UNIFRANZ ({academicProjects.length})
+          </button>
+
+          <button 
+            type="button"
+            class="filter-cat-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-bold text-slate-300 hover:text-white hover:bg-slate-800/80 transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
+            data-category="personal"
+          >
+            <span class="w-2 h-2 rounded-full bg-rose-400"></span>
+            Proyectos Personales ({personalProjects.length})
+          </button>
+        </div>
+
+        <!-- Realtime Search Input -->
+        <div class="relative w-full md:w-80">
+          <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+          <input 
+            type="text" 
+            id="project-search-input"
+            placeholder="Buscar por materia, tech o título..." 
+            class="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm bg-surface border border-surface-border rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all"
+          />
+        </div>
+
+      </div>
+
+      <!-- Bottom Row: Tech Stack Quick Pills -->
+      <div class="flex items-center gap-2 pt-3 border-t border-surface-border/50 overflow-x-auto pb-1 text-xs">
+        <span class="text-slate-400 font-mono text-[11px] whitespace-nowrap font-medium">Filtrar por stack:</span>
+        <button 
+          type="button" 
+          class="tech-pill-btn px-3 py-1 rounded-lg font-mono font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 whitespace-nowrap transition-colors"
+          data-tech="all"
+        >
+          Todas
+        </button>
+        {allTechnologies.map((tech) => (
+          <button 
+            type="button" 
+            class="tech-pill-btn px-3 py-1 rounded-lg font-mono text-slate-400 bg-surface hover:text-slate-100 hover:bg-slate-800 border border-surface-border whitespace-nowrap transition-colors"
+            data-tech={tech.toLowerCase()}
+          >
+            {tech}
+          </button>
+        ))}
+      </div>
+
+    </div>
+
+    <!-- Projects Grid Container -->
+    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+
+    <!-- Empty State Message -->
+    <div id="no-projects-msg" class="hidden text-center py-16 px-4 rounded-2xl glass-panel border border-surface-border space-y-3">
+      <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center mx-auto text-slate-400">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+      <h3 class="text-base font-bold text-white">No se encontraron proyectos</h3>
+      <p class="text-xs sm:text-sm text-slate-400 max-w-sm mx-auto">
+        Prueba cambiando de categoría o limpiando los términos de búsqueda.
+      </p>
+      <button 
+        type="button" 
+        id="reset-filter-btn"
+        class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 transition-colors shadow-md"
+      >
+        Restablecer filtros
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  let activeCategory = 'all';
+  let activeTech = 'all';
+  let searchQuery = '';
+
+  const catButtons = document.querySelectorAll<HTMLButtonElement>('.filter-cat-btn');
+  const techButtons = document.querySelectorAll<HTMLButtonElement>('.tech-pill-btn');
+  const searchInput = document.getElementById('project-search-input') as HTMLInputElement | null;
+  const projectItems = document.querySelectorAll<HTMLElement>('.project-item');
+  const noProjectsMsg = document.getElementById('no-projects-msg');
+  const resetBtn = document.getElementById('reset-filter-btn');
+
+  function applyFilters() {
+    let visibleCount = 0;
+
+    projectItems.forEach((item) => {
+      const category = item.dataset.category || '';
+      const tags = (item.dataset.tags || '').split(',');
+      const searchContent = item.dataset.search || '';
+
+      const matchCategory = activeCategory === 'all' || category === activeCategory;
+      const matchTech = activeTech === 'all' || tags.includes(activeTech.toLowerCase());
+      const matchSearch = !searchQuery || searchContent.includes(searchQuery.toLowerCase());
+
+      if (matchCategory && matchTech && matchSearch) {
+        item.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+
+    if (noProjectsMsg) {
+      if (visibleCount === 0) {
+        noProjectsMsg.classList.remove('hidden');
+      } else {
+        noProjectsMsg.classList.add('hidden');
+      }
+    }
+  }
+
+  // Category buttons click handler
+  catButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      catButtons.forEach(b => {
+        b.classList.remove('bg-cyan-500', 'text-slate-950', 'shadow-md');
+        b.classList.add('text-slate-300');
+      });
+      btn.classList.add('bg-cyan-500', 'text-slate-950', 'shadow-md');
+      btn.classList.remove('text-slate-300');
+
+      activeCategory = btn.dataset.category || 'all';
+      applyFilters();
+    });
+  });
+
+  // Tech buttons click handler
+  techButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      techButtons.forEach(b => {
+        b.classList.remove('bg-cyan-500/20', 'text-cyan-300', 'border-cyan-500/40');
+        b.classList.add('bg-surface', 'text-slate-400', 'border-surface-border');
+      });
+      btn.classList.add('bg-cyan-500/20', 'text-cyan-300', 'border-cyan-500/40');
+      btn.classList.remove('bg-surface', 'text-slate-400', 'border-surface-border');
+
+      activeTech = btn.dataset.tech || 'all';
+      applyFilters();
+    });
+  });
+
+  // Search input handler
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = (e.target as HTMLInputElement).value.trim();
+      applyFilters();
+    });
+  }
+
+  // Reset button handler
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      activeCategory = 'all';
+      activeTech = 'all';
+      searchQuery = '';
+      if (searchInput) searchInput.value = '';
+
+      catButtons.forEach((b, idx) => {
+        if (idx === 0) {
+          b.classList.add('bg-cyan-500', 'text-slate-950', 'shadow-md');
+          b.classList.remove('text-slate-300');
+        } else {
+          b.classList.remove('bg-cyan-500', 'text-slate-950', 'shadow-md');
+          b.classList.add('text-slate-300');
+        }
+      });
+
+      techButtons.forEach((b, idx) => {
+        if (idx === 0) {
+          b.classList.add('bg-cyan-500/20', 'text-cyan-300', 'border-cyan-500/40');
+          b.classList.remove('bg-surface', 'text-slate-400');
+        } else {
+          b.classList.remove('bg-cyan-500/20', 'text-cyan-300', 'border-cyan-500/40');
+          b.classList.add('bg-surface', 'text-slate-400');
+        }
+      });
+
+      applyFilters();
+    });
+  }
+</script>

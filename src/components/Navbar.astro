@@ -1,0 +1,91 @@
+---
+import { profile } from '../data/profile';
+---
+
+<header class="sticky top-0 z-40 w-full glass-panel border-b border-surface-border/80 transition-all duration-300">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    
+    <!-- Brand / Logo -->
+    <a href="#" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-400 via-primary-600 to-personal flex items-center justify-center text-white font-mono font-extrabold shadow-lg shadow-primary-500/25 group-hover:scale-105 group-hover:shadow-primary-500/40 transition-all duration-200">
+        &lt;DG/&gt;
+      </div>
+      <div class="flex flex-col">
+        <span class="text-sm font-extrabold tracking-tight text-white group-hover:text-primary-300 transition-colors">
+          {profile.name}
+        </span>
+        <span class="text-[11px] text-cyan-400/90 font-mono">
+          {profile.institution}
+        </span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="hidden md:flex items-center gap-1.5 text-xs font-semibold text-slate-300">
+      <a href="#inicio" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/70 transition-colors">Inicio</a>
+      
+      <a href="#proyectos" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/70 transition-colors flex items-center gap-1.5">
+        Proyectos
+        <span class="px-2 py-0.5 text-[10px] font-mono font-bold bg-primary-500/20 text-primary-300 border border-primary-500/40 rounded-full">
+          {profile.stats.academicProjectsCount + profile.stats.personalProjectsCount}
+        </span>
+      </a>
+
+      <a href="#habilidades" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/70 transition-colors">Habilidades</a>
+      <a href="#trayectoria" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/70 transition-colors">Materias</a>
+      <a href="#sobre-mi" class="px-3 py-1.5 rounded-lg hover:text-white hover:bg-slate-800/70 transition-colors">Sobre Mí</a>
+    </nav>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-3">
+      <a 
+        href="#contacto" 
+        class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-slate-950 bg-gradient-to-r from-cyan-400 via-primary-300 to-rose-300 hover:from-cyan-300 hover:to-rose-200 rounded-xl shadow-md shadow-cyan-500/20 transition-all duration-200 hover:shadow-cyan-500/40 hover:-translate-y-0.5"
+      >
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+        Hablemos
+      </a>
+
+      <!-- Mobile Menu Button -->
+      <button 
+        id="mobile-menu-btn"
+        aria-label="Abrir menú de navegación" 
+        class="md:hidden p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-surface-border bg-surface/95 backdrop-blur-2xl px-4 py-4 space-y-2">
+    <a href="#inicio" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 text-sm font-medium">Inicio</a>
+    <a href="#proyectos" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 text-sm font-medium">Proyectos</a>
+    <a href="#habilidades" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 text-sm font-medium">Habilidades</a>
+    <a href="#trayectoria" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 text-sm font-medium">Materias & Formación</a>
+    <a href="#sobre-mi" class="block px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800/80 text-sm font-medium">Sobre Mí</a>
+    <a href="#contacto" class="block px-3 py-2 rounded-xl text-primary-300 hover:bg-slate-800/80 text-sm font-bold">Contacto Directo</a>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  
+  if (btn && menu) {
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.add('hidden');
+      });
+    });
+  }
+</script>

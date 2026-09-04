@@ -1,0 +1,271 @@
+---
+import { projects } from '../data/projects';
+---
+
+<!-- Global Modal Container -->
+<div 
+  id="project-modal" 
+  class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 md:p-10"
+  role="dialog"
+  aria-modal="true"
+>
+  <!-- Backdrop overlay -->
+  <div id="modal-backdrop" class="fixed inset-0 bg-background/85 backdrop-blur-xl transition-opacity"></div>
+
+  <!-- Modal Dialog Content -->
+  <div class="relative w-full max-w-3xl max-h-[90vh] bg-surface-card border border-surface-border rounded-3xl shadow-2xl overflow-y-auto z-10 flex flex-col">
+    
+    <!-- Modal Header -->
+    <div class="p-6 border-b border-surface-border flex items-start justify-between gap-4 sticky top-0 bg-surface-card/95 backdrop-blur-xl z-20">
+      <div class="space-y-1.5">
+        <div id="modal-badge-container" class="flex items-center gap-2">
+          <!-- Dynamic Badge inserted via JS -->
+        </div>
+        <h3 id="modal-title" class="text-xl sm:text-2xl font-black text-white">
+          <!-- Title -->
+        </h3>
+      </div>
+      <button 
+        type="button" 
+        id="modal-close-btn"
+        class="p-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+        aria-label="Cerrar modal"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="p-6 space-y-6">
+      
+      <!-- Academic / Personal Metadata Banner Box -->
+      <div id="modal-meta-box" class="p-4 rounded-2xl border bg-surface/70 space-y-2 text-xs sm:text-sm">
+        <!-- Dynamic metadata list -->
+      </div>
+
+      <!-- Description Section -->
+      <div class="space-y-2">
+        <h4 class="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400">
+          Descripción del Proyecto
+        </h4>
+        <p id="modal-description" class="text-sm text-slate-200 leading-relaxed whitespace-pre-line">
+          <!-- Full description -->
+        </p>
+      </div>
+
+      <!-- Highlights / Logros Técnicos -->
+      <div class="space-y-2">
+        <h4 class="text-xs font-mono font-bold uppercase tracking-wider text-primary-300">
+          Aspectos Técnicos & Funcionalidades
+        </h4>
+        <ul id="modal-highlights" class="space-y-2 text-xs sm:text-sm text-slate-300 list-disc list-inside marker:text-cyan-400">
+          <!-- Highlights -->
+        </ul>
+      </div>
+
+      <!-- Learning Outcomes / Aprendizajes de la Materia -->
+      <div id="modal-learning-section" class="space-y-2">
+        <h4 class="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400">
+          Aprendizajes Clave & Habilidades Adquiridas
+        </h4>
+        <ul id="modal-learnings" class="space-y-2 text-xs sm:text-sm text-slate-300 list-disc list-inside marker:text-emerald-400">
+          <!-- Learnings -->
+        </ul>
+      </div>
+
+      <!-- Tech Stack Badges -->
+      <div class="space-y-2">
+        <h4 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">
+          Tecnologías & Herramientas Empleadas
+        </h4>
+        <div id="modal-tags" class="flex flex-wrap gap-2">
+          <!-- Tags -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Modal Footer Actions -->
+    <div class="p-6 border-t border-surface-border bg-surface/80 flex flex-wrap items-center justify-between gap-3 sticky bottom-0 z-20">
+      <div id="modal-links" class="flex flex-wrap items-center gap-3">
+        <!-- GitHub and Demo links inserted via JS -->
+      </div>
+      <button 
+        type="button" 
+        id="modal-close-bottom-btn"
+        class="px-5 py-2.5 text-xs font-bold text-slate-300 hover:text-white bg-surface hover:bg-slate-800 border border-surface-border rounded-xl transition-colors"
+      >
+        Cerrar
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Project Data serialization for client lookup -->
+<script define:vars={{ projects }}>
+  window.__PROJECTS_DATA__ = projects;
+</script>
+
+<script>
+  const modal = document.getElementById('project-modal');
+  const backdrop = document.getElementById('modal-backdrop');
+  const closeBtn = document.getElementById('modal-close-btn');
+  const closeBottomBtn = document.getElementById('modal-close-bottom-btn');
+
+  const titleEl = document.getElementById('modal-title');
+  const badgeContainer = document.getElementById('modal-badge-container');
+  const metaBox = document.getElementById('modal-meta-box');
+  const descEl = document.getElementById('modal-description');
+  const highlightsEl = document.getElementById('modal-highlights');
+  const learningSection = document.getElementById('modal-learning-section');
+  const learningsEl = document.getElementById('modal-learnings');
+  const tagsEl = document.getElementById('modal-tags');
+  const linksEl = document.getElementById('modal-links');
+
+  function openProjectModal(projectId) {
+    const projects = (window as any).__PROJECTS_DATA__ || [];
+    const project = projects.find((p: any) => p.id === projectId);
+    if (!project || !modal) return;
+
+    const isAcademic = project.category === 'materia';
+
+    // Title
+    if (titleEl) titleEl.textContent = project.title;
+
+    // Badges
+    if (badgeContainer) {
+      if (isAcademic) {
+        badgeContainer.innerHTML = `
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full badge-academic text-xs font-bold font-mono">
+            📚 Proyecto de Materia
+          </span>
+          <span class="text-xs text-slate-400 font-mono font-semibold">${project.academicMeta?.semester || ''}</span>
+        `;
+      } else {
+        badgeContainer.innerHTML = `
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full badge-personal text-xs font-bold font-mono">
+            🚀 Proyecto Personal
+          </span>
+          <span class="text-xs text-slate-400 font-mono font-semibold">${project.personalMeta?.status || 'Completado'}</span>
+        `;
+      }
+    }
+
+    // Metadata Box
+    if (metaBox) {
+      if (isAcademic && project.academicMeta) {
+        metaBox.className = "p-4 rounded-2xl border border-cyan-500/30 bg-cyan-950/20 space-y-1.5 text-xs sm:text-sm";
+        metaBox.innerHTML = `
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-slate-300">
+            <div><strong class="text-white">Asignatura:</strong> ${project.academicMeta.subject} (${project.academicMeta.code || 'UNIFRANZ'})</div>
+            <div><strong class="text-white">Institución:</strong> ${project.academicMeta.institution || 'Universidad Privada Franz Tamayo'}</div>
+            <div><strong class="text-white">Modalidad:</strong> ${project.academicMeta.professorOrTeam || 'Equipo UNIFRANZ'}</div>
+            <div><strong class="text-cyan-300">Calificación / Reconocimiento:</strong> ${project.academicMeta.grade || 'Aprobado'}</div>
+          </div>
+        `;
+        metaBox.classList.remove('hidden');
+      } else if (!isAcademic && project.personalMeta) {
+        metaBox.className = "p-4 rounded-2xl border border-rose-500/30 bg-rose-950/20 space-y-1.5 text-xs sm:text-sm";
+        metaBox.innerHTML = `
+          <div class="text-slate-300">
+            <strong class="text-white">Propósito del Proyecto:</strong> ${project.personalMeta.motivation || 'Desarrollo autónomo.'}
+          </div>
+        `;
+        metaBox.classList.remove('hidden');
+      } else {
+        metaBox.classList.add('hidden');
+      }
+    }
+
+    // Full Description
+    if (descEl) descEl.textContent = project.fullDescription || project.shortDescription;
+
+    // Highlights
+    if (highlightsEl) {
+      highlightsEl.innerHTML = '';
+      (project.highlights || []).forEach((h: string) => {
+        const li = document.createElement('li');
+        li.textContent = h;
+        highlightsEl.appendChild(li);
+      });
+    }
+
+    // Learnings (if any)
+    if (learningSection && learningsEl) {
+      if (project.learningOutcomes && project.learningOutcomes.length > 0) {
+        learningsEl.innerHTML = '';
+        project.learningOutcomes.forEach((l: string) => {
+          const li = document.createElement('li');
+          li.textContent = l;
+          learningsEl.appendChild(li);
+        });
+        learningSection.classList.remove('hidden');
+      } else {
+        learningSection.classList.add('hidden');
+      }
+    }
+
+    // Tags
+    if (tagsEl) {
+      tagsEl.innerHTML = '';
+      (project.tags || []).forEach((t: string) => {
+        const span = document.createElement('span');
+        span.className = "px-3 py-1 rounded-lg text-xs font-mono bg-surface-card text-slate-200 border border-surface-border font-medium";
+        span.textContent = t;
+        tagsEl.appendChild(span);
+      });
+    }
+
+    // Links
+    if (linksEl) {
+      linksEl.innerHTML = '';
+      if (project.githubUrl) {
+        linksEl.innerHTML += `
+          <a href="${project.githubUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-slate-800 hover:bg-slate-700 border border-slate-600 transition-colors shadow-sm">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            Ver Código en GitHub
+          </a>
+        `;
+      }
+      if (project.liveUrl && project.liveUrl !== '#') {
+        linksEl.innerHTML += `
+          <a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-slate-950 bg-cyan-400 hover:bg-cyan-300 transition-colors shadow-md">
+            <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            Ver Demo en Vivo
+          </a>
+        `;
+      }
+    }
+
+    // Show modal
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  // Attach button triggers
+  document.querySelectorAll('.open-modal-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const pid = btn.getAttribute('data-project-id');
+      if (pid) openProjectModal(pid);
+    });
+  });
+
+  if (backdrop) backdrop.addEventListener('click', closeModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (closeBottomBtn) closeBottomBtn.addEventListener('click', closeModal);
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>

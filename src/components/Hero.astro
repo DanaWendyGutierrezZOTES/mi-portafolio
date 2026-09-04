@@ -1,0 +1,176 @@
+---
+import { profile } from '../data/profile';
+---
+
+<section id="inicio" class="relative pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Text & Presentation Column -->
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        
+        <!-- Live Status Pill -->
+        <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-surface-card border border-surface-border text-xs font-semibold text-slate-300 shadow-md">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
+          <span class="text-slate-300">{profile.currentSemester}</span>
+          <span class="text-slate-600">•</span>
+          <span class="text-cyan-400 font-medium">{profile.institution}</span>
+        </div>
+
+        <!-- Main Headline -->
+        <div class="space-y-2">
+          <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white leading-tight">
+            Hola, soy <br class="hidden sm:inline" />
+            <span class="gradient-text-hero">
+              {profile.name}
+            </span>
+          </h1>
+          <p class="text-lg sm:text-xl font-bold text-cyan-300/90 font-mono">
+            {profile.title}
+          </p>
+        </div>
+
+        <!-- Bio description -->
+        <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+          {profile.shortBio}
+        </p>
+
+        <!-- Category Distinction Badges -->
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 pt-1">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono font-semibold badge-academic shadow-sm">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+            </svg>
+            {profile.stats.academicProjectsCount} Proyectos de Materias
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono font-semibold badge-personal shadow-sm">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+            {profile.stats.personalProjectsCount} Aplicación Creada
+          </span>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-3">
+          <a 
+            href="#proyectos" 
+            class="px-6 py-3 rounded-xl font-bold text-xs sm:text-sm text-slate-950 bg-gradient-to-r from-cyan-400 via-primary-300 to-rose-300 hover:from-cyan-300 hover:to-rose-200 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-0.5 transition-all duration-200 flex items-center gap-2"
+          >
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/>
+            </svg>
+            Explorar Proyectos
+          </a>
+
+          <a 
+            href="#contacto" 
+            class="px-5 py-3 rounded-xl font-semibold text-xs sm:text-sm text-slate-200 bg-surface-card border border-surface-border hover:bg-slate-800 hover:border-slate-500 hover:text-white transition-all duration-200 flex items-center gap-2"
+          >
+            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+            </svg>
+            Contactar
+          </a>
+
+          <div class="flex items-center gap-2">
+            <a 
+              href={profile.github} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="p-3 rounded-xl text-slate-400 hover:text-white bg-surface-card border border-surface-border hover:bg-slate-800 transition-colors"
+              title="GitHub"
+            >
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+            </a>
+
+            <a 
+              href={profile.linkedin} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="p-3 rounded-xl text-slate-400 hover:text-white bg-surface-card border border-surface-border hover:bg-slate-800 transition-colors"
+              title="LinkedIn"
+            >
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.66 1.66 0 0 0-1.66 1.66c0 .92.74 1.66 1.66 1.66a1.66 1.66 0 0 0 1.66-1.66c0-.92-.74-1.66-1.66-1.66Z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Bento Code Terminal -->
+      <div class="lg:col-span-5">
+        <div class="relative mx-auto max-w-md lg:max-w-none">
+          
+          <!-- Outer gradient aura -->
+          <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-primary-500 to-rose-500 rounded-3xl blur-xl opacity-30 animate-pulse-slow"></div>
+          
+          <!-- Terminal container -->
+          <div class="relative rounded-2xl glass-panel border border-surface-border overflow-hidden shadow-2xl">
+            <!-- Window header bar -->
+            <div class="px-4 py-3 bg-surface/90 border-b border-surface-border flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-rose-500/90 shadow-sm shadow-rose-500/50"></div>
+                <div class="w-3 h-3 rounded-full bg-amber-500/90 shadow-sm shadow-amber-500/50"></div>
+                <div class="w-3 h-3 rounded-full bg-emerald-500/90 shadow-sm shadow-emerald-500/50"></div>
+              </div>
+              <div class="flex items-center gap-1.5 text-xs font-mono text-slate-400">
+                <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                </svg>
+                <span>dana-profile.json</span>
+              </div>
+              <div class="w-6"></div>
+            </div>
+
+            <!-- Terminal code content -->
+            <div class="p-5 font-mono text-xs space-y-2.5 bg-surface-card/70">
+              <div class="text-slate-400">
+                <span class="text-primary-400 font-bold">const</span> softwareStudent = &#123;
+              </div>
+              <div class="pl-4 space-y-1 text-slate-300">
+                <div><span class="text-slate-400">nombre:</span> <span class="text-emerald-300 font-semibold">"{profile.name}"</span>,</div>
+                <div><span class="text-slate-400">carrera:</span> <span class="text-cyan-300 font-semibold">"{profile.academicTitle}"</span>,</div>
+                <div><span class="text-slate-400">institucion:</span> <span class="text-academic-light">"{profile.institution}"</span>,</div>
+                <div><span class="text-slate-400">semestre:</span> <span class="text-amber-300">"{profile.currentSemester}"</span>,</div>
+                <div>
+                  <span class="text-slate-400">proyectosMaterias:</span> 
+                  <span class="text-academic-light font-bold">[{profile.stats.academicProjectsCount} proyectos universitarios]</span>,
+                </div>
+                <div>
+                  <span class="text-slate-400">aplicacionesPersonales:</span> 
+                  <span class="text-personal-light font-bold">[{profile.stats.personalProjectsCount} aplicacion creada]</span>,
+                </div>
+                <div>
+                  <span class="text-slate-400">areasDeInteres:</span> [
+                  <div class="pl-4 text-cyan-200">
+                    "Bases de Datos & SQL",<br/>
+                    "Sistemas Operativos",<br/>
+                    "Desarrollo Web & APIs"
+                  </div>
+                  ],
+                </div>
+                <div><span class="text-slate-400">estado:</span> <span class="text-emerald-400 font-bold">"Listo para nuevos proyectos 💻"</span></div>
+              </div>
+              <div class="text-slate-400">&#125;;</div>
+
+              <!-- Terminal bottom bar -->
+              <div class="mt-4 pt-3 border-t border-surface-border flex items-center justify-between text-[11px] text-slate-400 font-mono">
+                <span class="text-cyan-300 font-semibold">⚡ UNIFRANZ</span>
+                <span class="text-rose-300 font-semibold">🎯 5to Semestre</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

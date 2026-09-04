@@ -1,0 +1,21 @@
+{
+  "name": "Dana Gutierrez",
+  "title": "Desarrolladora de Software & Estudiante de Ing. de Sistemas",
+  "academicTitle": "Ing. de Sistemas",
+  "institution": "Universidad Privada Franz Tamayo (UNIFRANZ)",
+  "currentSemester": "5to Semestre",
+  "location": "Bolivia / Remoto",
+  "shortBio": "Estudiante de 5to semestre de Ingeniería de Sistemas en UNIFRANZ. Apasionada por el desarrollo web, las bases de datos y la resolución de problemas mediante software bien diseñado.",
+  "bio": "Soy estudiante de Ingeniería de Sistemas en la Universidad Privada Franz Tamayo (UNIFRANZ). Me apasiona transformar los conceptos y materias de la carrera en proyectos funcionales, combinando el aprendizaje universitario con el desarrollo de aplicaciones prácticas.",
+  "email": "dana.gutierrez@example.com",
+  "github": "https://github.com",
+  "linkedin": "https://linkedin.com",
+  "cvUrl": "#",
+  "availableForWork": true,
+  "stats": {
+    "academicProjectsCount": 3,
+    "personalProjectsCount": 1,
+    "subjectsPassed": 24,
+    "technologiesCount": 10
+  }
+}

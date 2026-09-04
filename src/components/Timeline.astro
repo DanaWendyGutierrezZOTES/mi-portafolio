@@ -1,0 +1,61 @@
+---
+import { academicTimeline, profile } from '../data/profile';
+---
+
+<section id="trayectoria" class="py-16 md:py-24 relative">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-2xl mx-auto space-y-4">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-xs font-bold text-cyan-300 shadow-sm">
+        Trayectoria Académica
+      </div>
+      <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        Evolución de Materias en UNIFRANZ
+      </h2>
+      <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+        Progreso curricular y consolidación de competencias en <span class="text-cyan-400 font-semibold">{profile.institution}</span>.
+      </p>
+    </div>
+
+    <!-- Timeline List -->
+    <div class="relative pl-6 sm:pl-8 border-l-2 border-surface-border space-y-10">
+      {academicTimeline.map((item, index) => (
+        <div class="relative group">
+          
+          <!-- Node Dot on Line -->
+          <div class={`absolute -left-[31px] sm:-left-[39px] top-2 w-4 h-4 rounded-full border-4 border-background ${
+            index === 0 ? 'bg-cyan-400 ring-4 ring-cyan-400/20 shadow-glow-primary' : 'bg-primary-500 ring-4 ring-primary-500/20'
+          }`}></div>
+
+          <!-- Content Card -->
+          <div class="glass-card p-6 rounded-3xl border border-surface-border group-hover:border-cyan-500/50 transition-all space-y-3 shadow-lg">
+            
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="text-xs font-mono font-bold px-3 py-1 rounded-full bg-surface border border-surface-border text-cyan-300">
+                {item.year}
+              </span>
+              <span class="text-xs font-bold font-mono text-emerald-400 px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                {item.badge}
+              </span>
+            </div>
+
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">
+                {item.title}
+              </h3>
+              <p class="text-xs text-slate-400 font-medium mt-0.5">{item.subtitle}</p>
+            </div>
+
+            <p class="text-xs sm:text-sm text-slate-300/90 leading-relaxed">
+              {item.description}
+            </p>
+
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

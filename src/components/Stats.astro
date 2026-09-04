@@ -1,0 +1,72 @@
+---
+import { profile } from '../data/profile';
+import { projects } from '../data/projects';
+
+const academicCount = projects.filter(p => p.category === 'materia').length;
+const personalCount = projects.filter(p => p.category === 'personal').length;
+---
+
+<section class="relative py-10 border-y border-surface-border/80 bg-surface/60 backdrop-blur-md">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 text-center">
+      
+      <!-- Stat 1: Proyectos de Materias -->
+      <div class="p-5 rounded-2xl glass-card border border-academic/30 hover:border-academic-light/60 transition-all group">
+        <div class="w-10 h-10 rounded-xl bg-academic/15 text-academic-light flex items-center justify-center mx-auto mb-2.5 group-hover:scale-110 transition-transform">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+          </svg>
+        </div>
+        <div class="text-3xl sm:text-4xl font-black gradient-text-cyan font-mono flex items-center justify-center gap-1">
+          <span>{academicCount}</span>
+        </div>
+        <div class="text-xs sm:text-sm font-bold text-white mt-1">Proyectos de Materias</div>
+        <div class="text-[11px] text-slate-400 font-medium">Bases de datos, SO, Algoritmos</div>
+      </div>
+
+      <!-- Stat 2: Aplicación Creada -->
+      <div class="p-5 rounded-2xl glass-card border border-personal/30 hover:border-personal-light/60 transition-all group">
+        <div class="w-10 h-10 rounded-xl bg-personal/15 text-personal-light flex items-center justify-center mx-auto mb-2.5 group-hover:scale-110 transition-transform">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+        </div>
+        <div class="text-3xl sm:text-4xl font-black gradient-text-coral font-mono flex items-center justify-center gap-1">
+          <span>{personalCount}</span>
+        </div>
+        <div class="text-xs sm:text-sm font-bold text-white mt-1">Aplicación Creada</div>
+        <div class="text-[11px] text-slate-400 font-medium">Proyecto Full Stack Web</div>
+      </div>
+
+      <!-- Stat 3: Semestre Actual -->
+      <div class="p-5 rounded-2xl glass-card border border-emerald-500/30 hover:border-emerald-400/60 transition-all group">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center mx-auto mb-2.5 group-hover:scale-110 transition-transform">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+        <div class="text-3xl sm:text-4xl font-black text-emerald-400 font-mono flex items-center justify-center gap-1">
+          <span>5to</span>
+        </div>
+        <div class="text-xs sm:text-sm font-bold text-white mt-1">Semestre en Curso</div>
+        <div class="text-[11px] text-slate-400 font-medium">Ingeniería de Sistemas</div>
+      </div>
+
+      <!-- Stat 4: Tecnologías -->
+      <div class="p-5 rounded-2xl glass-card border border-primary-500/30 hover:border-primary-400/60 transition-all group">
+        <div class="w-10 h-10 rounded-xl bg-primary-500/15 text-primary-300 flex items-center justify-center mx-auto mb-2.5 group-hover:scale-110 transition-transform">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+          </svg>
+        </div>
+        <div class="text-3xl sm:text-4xl font-black text-primary-300 font-mono flex items-center justify-center gap-1">
+          <span>+{profile.stats.technologiesCount}</span>
+        </div>
+        <div class="text-xs sm:text-sm font-bold text-white mt-1">Herramientas & Tech</div>
+        <div class="text-[11px] text-slate-400 font-medium">Lenguajes, BD y Frameworks</div>
+      </div>
+
+    </div>
+  </div>
+</section>
